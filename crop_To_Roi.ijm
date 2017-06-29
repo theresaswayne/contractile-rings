@@ -1,10 +1,13 @@
 // crop_To_Roi.ijm
 // ImageJ/Fiji macro by Theresa Swayne, tcs6@cumc.columbia.edu, 2017
 // Input: An image or stack, and a set of ROIs in the ROI manager 
-// Output: A cropped image or stack for each ROI. 
+// Output: Saved in the same folder as the input image. 
+// -- A cropped image or stack for each ROI. 
 // 		Output images are numbered from 1 to the number of ROIs, 
 //		and are saved in the same folder as the source image.
 //		Non-rectangular ROIs are cropped to their bounding box.
+// -- An ROI set (.zip file) containing the ROIs.
+// -- A snapshot of the ROI locations.
 // Usage: Open an image. For each area you want to crop out, 
 // 		draw an ROI and press T to add to the ROI Manager.
 //		Then run the macro.
@@ -14,6 +17,23 @@ id = getImageID();
 title = getTitle();
 dotIndex = indexOf(title, ".");
 basename = substring(title, 0, dotIndex);
+
+// save ROIs to show location of each cell
+roiManager("save",path+basename+"_ROIs.zip");
+
+// save a snapshot
+run("Stack to RGB", "keep");
+rgbID = getImageID();
+roiManager("Show All with labels");
+selectImage(rgbID);
+run("Flatten");
+flatID = getImageID();
+selectImage(flatID);
+saveAs("tiff", path+basename+"_ROIlocs.tif");
+selectImage(flatID);
+close();
+selectImage(rgbID);
+close();
 
 // make sure nothing selected to begin with
 selectImage(id);
@@ -33,5 +53,3 @@ for(roiIndex=0; roiIndex < numROIs; roiIndex++) // loop through ROIs
 	close();
 	}	
 run("Select None");
-
-// TODO: save the ROIset and a snapshot
