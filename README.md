@@ -17,7 +17,7 @@ This script makes it easier to crop a field of view into multiple individual cel
 
 ## Output
 All files are saved in the same folder as the original image.
--- Cropped images named <original name>_crop1, <original name>_crop2, etc. 
--- An ROI set containing the ROIs used.
--- An RGB flattened snapshot of the ROIs with labels on the slice that is active at the time the plugin is run.
+- Cropped images named <original name>_crop1, <original name>_crop2, etc. 
+- An ROI set containing the ROIs used.
+- An RGB flattened snapshot of the ROIs with labels on the slice that is active at the time the plugin is run.
 
