@@ -1,8 +1,8 @@
 // crop_To_Roi.ijm
 // ImageJ/Fiji macro by Theresa Swayne, tcs6@cumc.columbia.edu, 2017
-// Input: A stack (or single plane) and a set of ROIs in the ROI manager 
-// Output: A stack (or single plane) corresponding to each ROI. 
-// 		Output images are numbered from 0 to the number of ROIs, 
+// Input: An image or stack, and a set of ROIs in the ROI manager 
+// Output: A cropped image or stack for each ROI. 
+// 		Output images are numbered from 1 to the number of ROIs, 
 //		and are saved in the same folder as the source image.
 //		Non-rectangular ROIs are cropped to their bounding box.
 // Usage: Open an image. For each area you want to crop out, 
@@ -21,11 +21,12 @@ roiManager("Deselect");
 run("Select None");
 
 numROIs = roiManager("count");
-for(i=0; i<numROIs;i++) // loop through ROIs
+for(roiIndex=0; roiIndex < numROIs; roiIndex++) // loop through ROIs
 	{ 
 	selectImage(id);
-	cropName = basename+i;
-	roiManager("Select", i); 
+	roiNum = roiIndex + 1; // image names starts with 1 like the ROI labels
+	cropName = basename+"_crop"+roiNum;
+	roiManager("Select", roiIndex);  // ROI indices start with 0
 	run("Duplicate...", "title=&cropName duplicate"); // creates the cropped stack
 	selectWindow(cropName);
 	saveAs("tiff", path+getTitle);
@@ -33,3 +34,4 @@ for(i=0; i<numROIs;i++) // loop through ROIs
 	}	
 run("Select None");
 
+// TODO: save the ROIset and a snapshot
