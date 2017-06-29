@@ -22,6 +22,7 @@ basename = substring(title, 0, dotIndex);
 roiManager("save",path+basename+"_ROIs.zip");
 
 // save a snapshot
+Stack.setDisplayMode("composite");
 run("Stack to RGB", "keep");
 rgbID = getImageID();
 roiManager("Show All with labels");
