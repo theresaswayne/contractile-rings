@@ -2,7 +2,10 @@
 ImageJ scripts for analyzing yeast contractile ring closure
 
 # Installation
-(to be updated)
+1. Download the .zip file to your computer.
+2. Unzip the file to get the individual script file(s).
+3. In Fiji, Plugins > Install Plugin > and choose the script you want to install. Repeat for all scripts.
+4. Quit Fiji and re-open it.
 
 # crop_To_Roi.ijm
 This script makes it easier to crop a field of view into multiple individual cells.
