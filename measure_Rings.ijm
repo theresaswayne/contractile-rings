@@ -18,7 +18,7 @@ basename = substring(title, 0, dotIndex);
 // 0 filename, 1 feret (max), 2-3 Feret x-y,
 // 4 Feret Angle, 5 Min Feret
 headers = "Filename,Feret,FeretX,FeretY,FeretAngle,MinFeret";
-File.append(headers,path + "Results.csv");
+File.append(headers,path + basename + ".csv");
 
 
 // pre-process
