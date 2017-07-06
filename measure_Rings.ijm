@@ -20,7 +20,6 @@ basename = substring(title, 0, dotIndex);
 headers = "Filename,Feret,FeretX,FeretY,FeretAngle,MinFeret";
 File.append(headers,path + basename + ".csv");
 
-
 // pre-process
 run("Median...", "radius=3 stack"); // smoothing while preserving edges
 
@@ -39,7 +38,7 @@ newResults = substring(newResults,0,lengthOf(newResults)-1); // strip the final 
 newResults = replace(newResults, "\t",","); // replace tabs with commas for csv
 File.append(newResults,path + basename + ".csv");
 
-close(); // close the image without saving
+// close(); // close the image without saving
 
 
 // TODO: get the time interval 
