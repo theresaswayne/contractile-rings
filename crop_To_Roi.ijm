@@ -7,13 +7,14 @@
 //		and are saved in the same folder as the source image.
 //		Non-rectangular ROIs are cropped to their bounding box.
 // -- An ROI set (.zip file) containing the ROIs.
-// -- A snapshot of the ROI locations.
+// -- A snapshot of the ROI locations on the composite image, at the current timepoint, using the current display settings.
 // Usage: Open an image. For each area you want to crop out, 
 // 		draw an ROI and press T to add to the ROI Manager.
 //		Then run the macro.
 
 path = getDirectory("image");
 id = getImageID();
+print("original image id",id)
 title = getTitle();
 dotIndex = indexOf(title, ".");
 basename = substring(title, 0, dotIndex);
@@ -22,21 +23,36 @@ basename = substring(title, 0, dotIndex);
 roiManager("save",path+basename+"_ROIs.zip");
 
 // save a snapshot
-Stack.setDisplayMode("composite");
-run("Stack to RGB", "keep");
+if (is("composite")) {
+	Stack.setDisplayMode("composite"); // raises error if image is not composite
+	run("Stack to RGB", "keep");
+}
+else {
+	run("Duplicate...", "title=copy duplicate"); // for single-channel non-RGB images; Flatten doesn't create new window
+}
+
 rgbID = getImageID();
-roiManager("Show All with labels");
 selectImage(rgbID);
-run("Flatten");
+roiManager("Show All with labels");
+run("Flatten", "stack");
 flatID = getImageID();
 selectImage(flatID);
 saveAs("tiff", path+basename+"_ROIlocs.tif");
-selectImage(flatID);
-close();
-selectImage(rgbID);
-close();
+
+// clean up
+
+if (isOpen(flatID)) {
+	selectImage(flatID);
+	close();
+}
+
+if (isOpen(rgbID)) {
+	selectImage(rgbID);
+	close();
+}
 
 // make sure nothing selected to begin with
+
 selectImage(id);
 roiManager("Deselect");
 run("Select None");
@@ -54,3 +70,5 @@ for(roiIndex=0; roiIndex < numROIs; roiIndex++) // loop through ROIs
 	close();
 	}	
 run("Select None");
+
+close();
