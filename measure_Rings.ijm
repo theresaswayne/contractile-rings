@@ -8,6 +8,8 @@
 // setup
 run("Set Measurements...", "feret's display redirect=None decimal=3");
 run("Input/Output...", "file=.csv"); 
+roiManager("Deselect");
+run("Select None");
 
 path = getDirectory("image");
 title = getTitle();
