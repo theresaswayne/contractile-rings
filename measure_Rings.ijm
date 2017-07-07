@@ -3,7 +3,9 @@
 // Theresa Swayne, for Pon lab, 2017
 // input: single-channel max projection containing one ring (extraneous structures are ok if touching edges)
 // output: a csv file containing measurements
-// limitations: will append to existing file
+// limitations: 
+//	the image must be saved first (will quit with error if it's not saved)
+//  data will be appended to existing csv file with the same name
 
 // setup
 run("Set Measurements...", "feret's display redirect=None decimal=3");
@@ -12,6 +14,10 @@ roiManager("Deselect");
 run("Select None");
 
 path = getDirectory("image");
+if (path == ""){
+	exit("Please save the image first, then re-run the macro.");
+}
+print("path = ",path);
 title = getTitle();
 dotIndex = indexOf(title, ".");
 basename = substring(title, 0, dotIndex);
