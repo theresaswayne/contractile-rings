@@ -17,7 +17,7 @@ path = getDirectory("image");
 if (path == ""){
 	exit("Please save the image first, then re-run the macro.");
 }
-print("path = ",path);
+
 title = getTitle();
 dotIndex = indexOf(title, ".");
 basename = substring(title, 0, dotIndex);
@@ -46,12 +46,12 @@ newResults = substring(newResults,0,lengthOf(newResults)-1); // strip the final 
 newResults = replace(newResults, "\t",","); // replace tabs with commas for csv
 File.append(newResults,path + basename + ".csv");
 
-// close(); // close the image without saving
+close(); // close the image without saving
 
 
 // TODO: get the time interval 
 // TODO: capture slice number
 // TODO: add a results column for time based on the above
 // TODO: adapt for batch
-// TODO: despeckle necessary?
+// TODO: detect gaps in time?
 
