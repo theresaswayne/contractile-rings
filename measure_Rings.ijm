@@ -31,10 +31,12 @@ File.append(headers,path + basename + ".csv");
 // pre-process
 run("Median...", "radius=3 stack"); // smoothing while preserving edges
 
+
 // threshold
 setAutoThreshold("MaxEntropy dark stack");
 setOption("BlackBackground", true);
 run("Convert to Mask", "method=MaxEntropy background=Dark black");
+run("Despeckle", "stack"); // get rid of any stray particles
 
 // analyze
 run("Analyze Particles...", "display exclude clear include stack");
@@ -53,5 +55,5 @@ close(); // close the image without saving
 // TODO: capture slice number
 // TODO: add a results column for time based on the above
 // TODO: adapt for batch
-// TODO: detect gaps in time?
+// TODO: detect gaps in time
 
