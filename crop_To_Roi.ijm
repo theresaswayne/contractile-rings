@@ -24,7 +24,7 @@ roiManager("save",path+basename+"_ROIs.zip");
 
 // save a snapshot
 if (is("composite")) {
-	Stack.setDisplayMode("composite"); // raises error if image is not composite
+	Stack.setDisplayMode("composite"); // this command raises error if image is not composite
 	run("Stack to RGB", "keep");
 }
 else {
