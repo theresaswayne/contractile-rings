@@ -53,11 +53,11 @@ sliceTimes = newArray(numResults);
 
 selectWindow("Results"); 
 lines = split(getInfo(), "\n"); // array where each element is a row of the table
-for (i = 0; i < numResults; i++)
+for (i = 1; i < numResults+1; i++) // start at 1 because in the lines array, row 0 is headers 
 	{
 //	parsedSlice = split(getResultString("Label",i),":"); // ith row
 //	sliceLabels[i] = parsedSlice[1];
-	sliceNum = getResult("Slice", i);
+	sliceNum = getResult("Slice", i-1); // start at 0 because in the getResult world, row 0 is the 1st result 
 	sliceTime = timeInt * (sliceNum - 1); 
 	print("for row",i,"the slice number is",sliceNum,"and the time is",sliceTime);
 //	timeString = ","+sliceLabels[i]+","+sliceTimes[i]+",";
@@ -68,23 +68,10 @@ for (i = 0; i < numResults; i++)
 	File.append(resultsRow,path + basename + ".csv");
 	}
 
-// TODO: get rid of row numbers and headings
-
-// convert strings to integers
-//C1Count = parseInt(C1Values[1]);
-//	values = split(lines[i], "\t"); // array where each element is a value in the row -- note this gives you strings
-
-//old method
-//String.copyResults;
-//newResults = String.paste;
-//newResults = substring(newResults,0,lengthOf(newResults)-1); // strip the final newline
-//newResults = replace(newResults, "\t",","); // replace tabs with commas for csv
-//newResults = replace(newResults, ":",","); // get slice number in a separate column
-//File.append(newResults,path + basename + ".csv");
+// TODO: get rid of row numbers
 
 close(); // close the image without saving
 
-// TODO: add a results column with time based on the above
 // TODO (maybe): adapt for batch
 // TODO (maybe): detect gaps in time
 
