@@ -8,7 +8,7 @@
 //  data will be appended to existing csv file with the same name
 
 // setup
-run("Set Measurements...", "feret's display redirect=None decimal=3");
+run("Set Measurements...", "feret's stack display redirect=None decimal=3");
 run("Input/Output...", "file=.csv"); 
 roiManager("Deselect");
 run("Select None");
@@ -28,9 +28,9 @@ timeInt = Stack.getFrameInterval();
 //print("The frame interval is",timeInt,Time);
 
 // add headers to results file
-// 0 filename, 1 slice, 2 feret (max), 3-4 Feret x-y,
-// 5 Feret Angle, 6 Min Feret, 7 time
-headers = "Filename,SliceNum,Feret,FeretX,FeretY,FeretAngle,MinFeret,"+Time;
+// [row], filename, feret (max), slice, 
+// Feret x, Feret y, Angle, Min Feret, elapsed time 
+headers = "Row, Filename,Feret,SliceNum,FeretX,FeretY,FeretAngle,MinFeret,"+Time;
 File.append(headers,path + basename + ".csv");
 
 // pre-process
@@ -52,18 +52,24 @@ sliceLabels = newArray(numResults);
 sliceTimes = newArray(numResults);
 
 selectWindow("Results"); 
-// lines = split(getInfo(), "\n"); // array where each element is a row of the table
+lines = split(getInfo(), "\n"); // array where each element is a row of the table
 for (i = 0; i < numResults; i++)
 	{
-	parsedSlice = split(getResultString("Label",i),":"); // ith row
-	sliceLabels[i] = parsedSlice[1];
-	sliceTimes[i] = timeInt * sliceLabels[i]  - timeInt; 
-	print("for row",i,"the slice number is",sliceLabels[i],"and the time is",sliceTimes[i]);
-	// idea - loop through rows and replace colon with comma, slicenum, time (=time * (slicenum-1)), comma
+//	parsedSlice = split(getResultString("Label",i),":"); // ith row
+//	sliceLabels[i] = parsedSlice[1];
+	sliceNum = getResult("Slice", i);
+	sliceTime = timeInt * (sliceNum - 1); 
+	print("for row",i,"the slice number is",sliceNum,"and the time is",sliceTime);
+//	timeString = ","+sliceLabels[i]+","+sliceTimes[i]+",";
+//	print("for row",i,"the timeString is ",timeString);
+//	resultsRow = replace(lines[i],":",timeString);	
+	resultsRow = replace(lines[i], "\t",","); // replace tabs with commas for csv
+	resultsRow = resultsRow + ","+sliceTime;
+	File.append(resultsRow,path + basename + ".csv");
 	}
 
+// TODO: get rid of row numbers and headings
 
-// headings = split(lines[0], "\t"); 
 // convert strings to integers
 //C1Count = parseInt(C1Values[1]);
 //	values = split(lines[i], "\t"); // array where each element is a value in the row -- note this gives you strings
