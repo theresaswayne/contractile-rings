@@ -22,15 +22,19 @@ title = getTitle();
 dotIndex = indexOf(title, ".");
 basename = substring(title, 0, dotIndex);
 
+// collect time interval
+Stack.getUnits(X, Y, Z, Time, Value);
+timeInt = Stack.getFrameInterval();
+print("The frame interval is",timeInt,Time);
+
 // add headers to results file
 // 0 filename, 1 feret (max), 2-3 Feret x-y,
 // 4 Feret Angle, 5 Min Feret
-headers = "Filename,SliceNum,Feret,FeretX,FeretY,FeretAngle,MinFeret";
+headers = "Filename,SliceNum,Feret,FeretX,FeretY,FeretAngle,MinFeret,"+Time;
 File.append(headers,path + basename + ".csv");
 
 // pre-process
 run("Median...", "radius=3 stack"); // smoothing while preserving edges
-
 
 // threshold
 setAutoThreshold("MaxEntropy dark stack");
@@ -73,7 +77,6 @@ File.append(newResults,path + basename + ".csv");
 
 close(); // close the image without saving
 
-// TODO: get the time interval 
 // TODO: add a results column for time based on the above
 // TODO: adapt for batch
 // TODO: detect gaps in time
