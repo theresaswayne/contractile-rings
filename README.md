@@ -1,5 +1,13 @@
 # contractile-rings
 ImageJ scripts for analyzing yeast contractile ring closure
+by Theresa Swayne, Columbia University
+
+# Note on the read-time-info branch
+The ```measure_Rings.ijm``` script in this branch reads the programmed time interval from the image properties, and uses it to populate a new column in the results file, containing the elapsed time.
+
+This function is not needed for Matlab analysis because the Matlab script already calculates the time, based on the previous, simpler output file format. 
+
+Therefore this branch has not been merged into the master. It is available for use in cases where the Matlab script is not being used.
 
 # Installation
 1. Download the .zip file to your computer.
