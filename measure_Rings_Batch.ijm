@@ -7,11 +7,11 @@
 // measure_Rings.ijm
 // IJ1 macro to process, threshold, and measure diameter of yeast contractile rings
 // Theresa Swayne, for Pon lab, 2017
-// input: single-channel max projection containing one ring (extraneous structures are ok if touching edges)
+// input: folder containing single-channel max projections containing one ring (extraneous structures are ok if touching edges)
 // output: a csv file containing measurements
 // limitations: 
 //	the image must be saved first (will quit with error if it's not saved)
-//  data will be appended to existing csv file with the same name
+//  If a csv file exists with the same name data will be appended to it
 
 // setup
 run("Set Measurements...", "feret's display redirect=None decimal=3");
@@ -27,7 +27,7 @@ function processFolder(dir1)
 	list = getFileList(dir1);
 	for (i=0; i<list.length; i++) 
 		{
-		print("processing",list[i]);
+		// print("processing",list[i]);
 		if (endsWith(list[i], "/"))
 			processFolder(dir1++File.separator+list[i]);
 		else if (endsWith(list[i], suffix))
@@ -55,8 +55,9 @@ function processImage(dir1, name)
 	run("Select None");
 
 	// pre-process
-	run("Median...", "radius=3 stack"); // smoothing while preserving edges
-	
+// first trial	run("Median...", "radius=3 stack"); // smoothing while preserving edges
+// second trial run("Gaussian Blur...","sigma=1 stack");	
+// third trial no filter
 	// threshold
 	setAutoThreshold("MaxEntropy dark stack");
 	setOption("BlackBackground", true);
