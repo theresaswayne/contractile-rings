@@ -15,13 +15,15 @@ This script makes it easier to crop a field of view into multiple individual cel
 ## Usage
 1. Draw an ROI around a cell or area of interest, and press T to add the ROI to the ROI Manager.
 -- The ROI can be any shape, but the cropped image will be a rectangle corresponding to the bounding box of the ROI.
-2. Run the script.
+2. Repeat for all cells in the field.
+3. Run the script.
 
 ## Output
-All files are saved in the same folder as the original image.
-- Cropped images named <original name>_crop1, <original name>_crop2, etc. 
+All files are saved in the same folder as the original image. 
+Output files include:
+- Cropped images, named <original name>_crop1.tif, <original name>_crop2.tif, etc. 
 - An ROI set containing the ROIs used.
-- An RGB flattened snapshot of the ROIs with labels on the slice that is active at the time the plugin is run.
+- An RGB flattened snapshot of the ROIs with labels, on the slice that is active at the time the plugin is run.
 
 ---
 
@@ -62,4 +64,4 @@ A CSV file containing Feret measurements for each timepoint.
     * Simply delete any measurements after the first ring has fully contracted.  
     * Alternatively, use _Image > Stacks > Tools > Make substack_ to crop the original stack in time.
 
-* The measurements use the same units as your image. If your image has an incorrect scale factor, or is in terms of pixels, then your measurements will be incorrect.
+* The measurements use the same units as your image. If your image has an incorrect scale factor, or none, then your measurements will be incorrect.
