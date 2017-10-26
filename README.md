@@ -14,7 +14,7 @@ This script makes it easier to crop a field of view into multiple individual cel
 
 ## Usage
 1. Draw an ROI around a cell or area of interest, and press T to add the ROI to the ROI Manager.
--- The ROI can be any shape, but the cropped image will be a rectangle corresponding to the bounding box of the ROI.
+* The ROI can be any shape; the cropped image will be a rectangle corresponding to the bounding box of the ROI.
 2. Repeat for all cells in the field.
 3. Run the script.
 
