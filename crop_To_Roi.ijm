@@ -28,6 +28,7 @@ if (is("composite")) {
 	run("Stack to RGB", "keep");
 }
 else {
+	run("Select None");
 	run("Duplicate...", "title=copy duplicate"); // for single-channel non-RGB images; Flatten doesn't create new window
 }
 
